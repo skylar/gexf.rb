@@ -52,11 +52,19 @@ class GEXF::Graph
     node
   end
 
+  def add_node(node)
+    @nodes << node
+  end
+
   def create_edge(source, target, opts={})
     opts[:type]       ||= defaultedgetype
     id                = assign_id(:edges, opts.delete(:id))
     @edges << edge    = GEXF::Edge.new(id, source.id, target.id, opts.merge(:graph => self))
     edge
+  end
+
+  def add_edge(edge)
+    @edges << edge
   end
 
   def attribute_definitions

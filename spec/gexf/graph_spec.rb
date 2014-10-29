@@ -121,6 +121,23 @@ describe GEXF::Graph do
     end
   end
 
+  describe "#add_node" do
+    let(:node) { mock('node') }
+
+    before(:each) do
+      nodeset = mock('nodeset')
+
+      GEXF::NodeSet.stub(:new).and_return(nodeset)
+      nodeset.should_receive(:<<).at_least(:once).with(node)
+    end
+
+    context "when a node is provided" do
+      it "adds the node to the nodeset" do
+        graph.add_node(node)
+      end
+    end
+  end
+
   describe "#create_edge" do
     let(:edge_label) { 'bar' }
     let(:source_id)  { '2' }
@@ -166,6 +183,23 @@ describe GEXF::Graph do
                    and_return(@edge)
 
         subject.should == @edge
+      end
+    end
+  end
+
+  describe "#add_edge" do
+    let(:edge) { mock('edge') }
+
+    before(:each) do
+      edgeset = mock('edgeset')
+
+      GEXF::EdgeSet.stub(:new).and_return(edgeset)
+      edgeset.should_receive(:<<).at_least(:once).with(edge)
+    end
+
+    context "when an edge is provided" do
+      it "adds the edge to the edgeset" do
+        graph.add_edge(edge)
       end
     end
   end
